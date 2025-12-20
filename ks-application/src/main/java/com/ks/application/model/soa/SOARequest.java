@@ -9,6 +9,7 @@ public class SOARequest {
     private String barCodePrefix;
     private BigDecimal barCodeStartingNumber;
     private BigDecimal barCodeEndingNumber;
+    private BigDecimal barCodeLength;
     private String category;
     private String statusDesc;
     public SOARequest() {}
@@ -109,6 +110,14 @@ public class SOARequest {
 	 */
 	public void setCategory(String category) {
 		this.category = category;
+	}
+
+	public BigDecimal getBarCodeLength() {
+		return barCodeLength;
+	}
+
+	public void setBarCodeLength(BigDecimal barCodeLength) {
+		this.barCodeLength = barCodeLength;
 	}
 	
     

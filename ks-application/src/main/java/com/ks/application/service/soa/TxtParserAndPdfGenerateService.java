@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import com.ks.application.model.soa.AccountInfo;
+import com.ks.application.model.soa.SOAReadyPrintFile;
 import com.ks.application.model.soa.SOARequest;
 import com.ks.application.model.soa.TransactionRow;
 
@@ -30,16 +32,59 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 public class TxtParserAndPdfGenerateService {
 
 	
-    public void parseAndGeneratePdf(String txtPath,String outputDir,SOARequest soaRequest) throws Exception {
+	public void soaProcess(SOARequest soaRequest) throws Exception 
+	{
+        File inFolder = new File(soaRequest.getInputFolder());
+        File outFolder = new File(soaRequest.getOutputFolder());
 
-    	String barCodePrefix = soaRequest.getBarCodePrefix();
+        if (!inFolder.exists() || !inFolder.isDirectory()) {
+        	soaRequest.setStatusDesc("Invalid input directory not exists. dir : " + soaRequest.getInputFolder());
+        	return ;
+        }
+        
+        if (!outFolder.exists()) {
+            outFolder.mkdirs();
+        }
+        else {
+        	outFolder.delete();
+        	outFolder.mkdirs();
+        }
+        File[] files = inFolder.listFiles(
+                f -> f.isFile() && f.getName().toLowerCase().endsWith(".txt"));
+
+        if (files == null || files.length == 0) 
+        {
+        	soaRequest.setStatusDesc("No data found under input directory.  dir : " + soaRequest.getInputFolder());
+            return ;
+        }
+
+        for (File txtFile : files)
+        {
+        	String txtFileName = txtFile.getName(); 
+	    	int dotIndex = txtFileName.lastIndexOf('.');
+	    	String fileNameWithoutExt = (dotIndex == -1) ? txtFileName : txtFileName.substring(0, dotIndex);
+	    	
+	    	
+	        File folderWithFileName = new File(soaRequest.getOutputFolder() + File.separator + fileNameWithoutExt);
+	        if (!folderWithFileName.exists())
+	        {
+	        	folderWithFileName.mkdirs();
+	        }
+//	        ProcessorUtil.createDirectory(folderWithFileName.getAbsolutePath());
+	        parseAndGeneratePdf( txtFile.getAbsolutePath(),folderWithFileName.getAbsolutePath(),soaRequest);
+//	        PdfMergerProcess.pdfMerger(folderWithFileName.getAbsolutePath(), folderWithFileName.getAbsolutePath() + File.separator + "Merged_File_" + new Date().getTime() + ".pdf" );
+//	        ProcessorUtil.deleteDirectory(folderWithFileName.getAbsolutePath());
+        } 
+        
+        soaRequest.setStatusDesc("Process done successfully, merged PDF geenerate on dir : " + outFolder.getAbsolutePath() + " : End Barcode Numeber : " + soaRequest.getBarCodeStartingNumber());
+	}
+    private void parseAndGeneratePdf(String txtFileName,String outputDir,SOARequest soaRequest) throws Exception {
+        String barCodePrefix = soaRequest.getBarCodePrefix();
     	BigDecimal barCodeStartingNumber = soaRequest.getBarCodeStartingNumber();
-    	int report_counter=0;
     	
-    	int perPageRowCount = 30;
-    	int centralBankImageRowCount = 4;
-    	
-        try (BufferedReader br = new BufferedReader(new FileReader(txtPath))){
+    	List<SOAReadyPrintFile> printableFileList = new ArrayList<>();
+    	int randomNum = 0 ;
+        try (BufferedReader br = new BufferedReader(new FileReader(txtFileName))){
 
             String line;
             boolean inAccountBlock = false;
@@ -51,7 +96,8 @@ public class TxtParserAndPdfGenerateService {
             
             AccountInfo accountInfo = new AccountInfo();
             List<TransactionRow> transactions = new ArrayList<>();
-            DecimalFormat dfBC = new DecimalFormat("000000");
+            String barCodeLength = "0".repeat(soaRequest.getBarCodePrefix().length() > soaRequest.getBarCodeLength().intValue() ? soaRequest.getBarCodePrefix().length()  :  soaRequest.getBarCodeLength().intValue() - soaRequest.getBarCodePrefix().length() ) ;
+            DecimalFormat dfBC = new DecimalFormat(barCodeLength);
             while ((line = br.readLine()) != null) 
             {
                 line = line.trim();
@@ -60,10 +106,9 @@ public class TxtParserAndPdfGenerateService {
                 // -------- START ACCOUNT --------
                 if (line.startsWith("+CUST-ACCOUNTINFO>")) {
                     inAccountBlock = true;
-                    report_counter++;
                  // -------- HEADER DATA (| delimited) --------
                     accountInfo = ProcessorUtil.parseAccountHeader(line);
-                    accountInfo.setBarCode(barCodePrefix  + dfBC.format(barCodeStartingNumber.doubleValue()));
+                    accountInfo.setBarCode("*" + barCodePrefix  + dfBC.format(barCodeStartingNumber.doubleValue()) + "*");
                     accountInfo.setCategory( soaRequest.getCategory());
                     barCodeStartingNumber = barCodeStartingNumber.add(BigDecimal.ONE);
                     continue;
@@ -80,10 +125,19 @@ public class TxtParserAndPdfGenerateService {
                     inAccountBlock = false;
                     
                     // Generate PDF for this account
-                    String pdfPath = outputDir + File.separator + accountInfo.getBarCode() + "_soa.pdf";
-                    System.out.println("File name : " + pdfPath);
-                    generatePdf(accountInfo, transactions, pdfPath);
+                    randomNum++;
+                    SOAReadyPrintFile soaReadyPrintFile = new SOAReadyPrintFile();
+                    soaReadyPrintFile.setAccountInfo(accountInfo);
+                    soaReadyPrintFile.setTransactionRow(transactions);
+                    String filePages  = ProcessorUtil.returnFilePages(transactions);
+                    String pdfPath = outputDir + File.separator + filePages + "_" + randomNum+".pdf";
+                    soaReadyPrintFile.setFilePath(pdfPath);
+                    soaReadyPrintFile.setFilePages(filePages);
                     
+                    System.out.println("File name : " + pdfPath + " - filePages : " + filePages);
+                    
+                    printableFileList.add(soaReadyPrintFile);
+
                     accountInfo = new AccountInfo();
                     transactions = new ArrayList<>();
                     creditTrxCount= BigDecimal.ZERO;
@@ -119,9 +173,16 @@ public class TxtParserAndPdfGenerateService {
                 }
             }
         }
+        soaRequest.setBarCodeStartingNumber(barCodeStartingNumber);
+        for (SOAReadyPrintFile soaReadyPrintFile : printableFileList)
+        {
+        	System.out.println(soaReadyPrintFile.getFilePages() + " - File Path : " + soaReadyPrintFile.getFilePath());
+        	generatePdf(soaReadyPrintFile.getAccountInfo(), soaReadyPrintFile.getTransactionRow(), soaReadyPrintFile.getFilePath());
+		}
+        
     }
 	
-    public void generatePdf(AccountInfo account, List<TransactionRow> txns, String pdfPath) throws Exception {
+    private void generatePdf(AccountInfo account, List<TransactionRow> txns, String pdfPath) throws Exception {
     try {
 
     	Resource resource = new ClassPathResource("reports/soa.jrxml");
