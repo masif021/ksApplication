@@ -1,0 +1,401 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name="soa" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b9165444-d243-4f2a-aef7-c68fe2394a10">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<style name="Style_Arial" blankWhenNull="true" fontName="Arial">
+		<box>
+			<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="ClientName" class="java.lang.String"/>
+	<parameter name="AccountNumber" class="java.lang.String"/>
+	<parameter name="AccountTitle" class="java.lang.String"/>
+	<parameter name="ClientAddress" class="java.lang.String"/>
+	<parameter name="IBAN" class="java.lang.String"/>
+	<parameter name="DateFrom" class="java.lang.String"/>
+	<parameter name="DateTo" class="java.lang.String"/>
+	<parameter name="BarCode" class="java.lang.String"/>
+	<parameter name="Product" class="java.lang.String"/>
+	<parameter name="Category" class="java.lang.String"/>
+	<parameter name="BranchName" class="java.lang.String"/>
+	<parameter name="RegionName" class="java.lang.String"/>
+	<parameter name="Currency" class="java.lang.String"/>
+	<parameter name="debitTrxCount" class="java.lang.Integer"/>
+	<parameter name="debitTrxAmount" class="java.math.BigDecimal"/>
+	<parameter name="creditTrxCount" class="java.lang.Integer"/>
+	<parameter name="creditTrxAmount" class="java.math.BigDecimal"/>
+	<parameter name="TotalCreditTrxAmountFormatted" class="java.lang.String"/>
+	<parameter name="TotalDebitTrxAmountFormatted" class="java.lang.String"/>
+	<field name="date" class="java.lang.String"/>
+	<field name="particulars" class="java.lang.String"/>
+	<field name="instrumentNo" class="java.lang.String"/>
+	<field name="debit" class="java.math.BigDecimal"/>
+	<field name="credit" class="java.math.BigDecimal"/>
+	<field name="balance" class="java.math.BigDecimal"/>
+	<background splitType="Stretch"/>
+	<title height="27" splitType="Stretch"/>
+	<pageHeader height="241" splitType="Stretch">
+		<element kind="textField" uuid="9c1cc20e-0c2b-48c4-a2d2-cfc177f36b59" x="389" y="0" width="28" height="20" fontName="Arial" fontSize="11.0" hTextAlign="Right" vTextAlign="Middle">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+		<element kind="staticText" uuid="dff47fcb-5c86-4b9a-9fb7-2e1ccb2a49ce" stretchType="NoStretch" x="418" y="0" width="24" height="20" fontName="Arial" fontSize="11.0" strikeThrough="false" italic="false" bold="false" underline="false" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[of]]></text>
+		</element>
+		<element kind="textField" uuid="09bc105c-8a99-408d-9ccf-c287a42a1ba3" x="442" y="0" width="100" height="20" evaluationTime="Report" hTextAlign="Left" vTextAlign="Middle">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+		<element kind="textField" uuid="5266553e-4f84-4a8c-aa02-7edcf49430ff" x="343" y="0" width="50" height="20" hTextAlign="Right" vTextAlign="Middle">
+			<expression><![CDATA["Page"]]></expression>
+		</element>
+		<element kind="image" uuid="12b91482-5f83-446c-a56a-9306ff687a01" stretchType="NoStretch" x="2" y="165" width="550" height="75" hImageAlign="Right">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+			<expression><![CDATA["E:/workspace/ks-application/src/main/resources/images/soa/sbp_1.png" ]]></expression>
+		</element>
+		<element kind="textField" uuid="7b990f75-1134-4d9c-b3cc-106c683d774f" x="330" y="143" width="59" height="18" fontName="Arial" fontSize="9.0" linkType="None" linkTarget="Self" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+			<expression><![CDATA["PERIOD:"]]></expression>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="d1b8299a-e7c0-4e75-b9a8-3626027150dc" x="378" y="143" width="81" height="18" fontName="Arial" fontSize="9.0" pattern="dd-MM-yyyy" blankWhenNull="true" hTextAlign="Center" vTextAlign="Middle">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+			<expression><![CDATA[$P{DateFrom}]]></expression>
+			<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+		</element>
+		<element kind="textField" uuid="b548f53e-191b-46db-86ba-b6f62a1d89ec" x="447" y="143" width="82" height="18" fontName="Arial" fontSize="9.0" pattern="dd-MM-yyyy" blankWhenNull="true" hTextAlign="Center" vTextAlign="Middle">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+			<expression><![CDATA[$P{DateTo}]]></expression>
+			<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+		</element>
+		<element kind="textField" uuid="9b988690-222d-4a8d-97bf-ee701baf4032" x="0" y="3" width="220" height="20" fontName="Arial" fontSize="9.0" linkType="None" linkTarget="Self" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+			<expression><![CDATA[$P{ClientName}]]></expression>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="36fd7aba-532d-433d-9691-899979233e2e" x="0" y="23" width="220" height="60" fontName="Arial" fontSize="9.0" linkType="None" linkTarget="Self" bold="false" hTextAlign="Left" vTextAlign="Top">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+			<expression><![CDATA[$P{ClientAddress}]]></expression>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="809c66d0-76e1-457e-bd11-e84b462e7cf8" x="20" y="84" width="250" height="39" fontName="IDAutomationHC39M" fontSize="9.0" linkType="None" linkTarget="Self" bold="false" hTextAlign="Left" vTextAlign="Middle">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+			<expression><![CDATA[$P{BarCode}]]></expression>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="b048bf67-a7da-4dc0-b6d7-9ddd8fc5431b" x="270" y="85" width="58" height="18" fontName="Arial" fontSize="9.0" linkType="None" linkTarget="Self" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+			<expression><![CDATA[$P{Category}]]></expression>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="0a2a0a3d-1aa3-4b91-9325-6e6c0fb0bb94" x="4" y="123" width="112" height="18" fontName="Arial" fontSize="9.0" linkType="None" linkTarget="Self" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+			<expression><![CDATA["BRANCH CODE-NAME :"]]></expression>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="c7a0d2a5-3d91-497d-8787-5c269ccb7e38" x="116" y="123" width="204" height="18" fontName="Arial" fontSize="9.0" linkType="None" linkTarget="Self" bold="false" hTextAlign="Left" vTextAlign="Middle">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+			<expression><![CDATA[$P{BranchName}]]></expression>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="4989b049-5501-4225-a4ac-c5d69da025bf" x="5" y="142" width="90" height="18" fontName="Arial" fontSize="10.0" linkType="None" linkTarget="Self" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+			<expression><![CDATA["REGION NAME :"]]></expression>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="2ce094e4-af64-44fc-8a73-bf03fdd178aa" x="95" y="142" width="225" height="18" fontName="Arial" fontSize="8.0" linkType="None" linkTarget="Self" bold="false" hTextAlign="Left" vTextAlign="Middle">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+			<expression><![CDATA[$P{RegionName}]]></expression>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="22303199-0bfd-4190-a517-f51c27b46b05" x="330" y="84" width="224" height="18" fontName="Arial" fontSize="9.0" linkType="None" linkTarget="Self" bold="false" hTextAlign="Left" vTextAlign="Middle">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+			<expression><![CDATA[$P{Product}]]></expression>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="595fd551-bafd-45ce-957e-a9054a6dda87" x="329" y="104" width="80" height="18" fontName="Arial" fontSize="9.0" linkType="None" linkTarget="Self" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+			<expression><![CDATA["ACCOUNT NO :"]]></expression>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="4a50b98a-724c-47c0-81ae-9ddbaa9ba423" x="409" y="104" width="145" height="18" fontName="Arial" fontSize="9.0" linkType="None" linkTarget="Self" bold="false" hTextAlign="Left" vTextAlign="Middle">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+			<expression><![CDATA[$P{AccountNumber}]]></expression>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="23af112c-846a-4aa6-aab6-41362b447cc8" x="330" y="122" width="40" height="18" fontName="Arial" fontSize="9.0" linkType="None" linkTarget="Self" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+			<expression><![CDATA["IBAN :"]]></expression>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="b7fd50a8-7129-4881-b204-13d834de2133" x="370" y="122" width="185" height="18" fontName="Arial" fontSize="9.0" linkType="None" linkTarget="Self" bold="false" hTextAlign="Left" vTextAlign="Middle">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+			<expression><![CDATA[$P{IBAN}]]></expression>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<property name="com.jaspersoft.studio.unit.height" value="px"/>
+	</pageHeader>
+	<columnHeader height="20" splitType="Stretch">
+		<element kind="staticText" uuid="7623cc86-d88a-43c8-9b3b-68829b85e471" x="0" y="0" width="60" height="20" fontName="Arial" fontSize="8.0" bold="true" hTextAlign="Center" vTextAlign="Middle" style="Style_Arial">
+			<text><![CDATA[Date]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1f5b8717-e58b-47d4-98cd-6b92a3578fcf"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<box padding="1" style="Style_Arial">
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="e9b0835c-5a5a-4685-8ec5-191d3d31b131" x="60" y="0" width="170" height="20" fontName="Arial" fontSize="8.0" linkType="None" linkTarget="Self" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA["PARTICULARS"]]></expression>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<box>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="0d36dba5-164b-487b-a0a0-c2af0f0f48ef" x="230" y="0" width="60" height="20" fontName="Arial" fontSize="8.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA["INST NO"]]></expression>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<box>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="1a6684cc-4d4c-46d6-8c50-75922f021121" x="290" y="0" width="80" height="20" fontName="Arial" fontSize="8.0" linkType="None" linkTarget="Self" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA["DEBIT"]]></expression>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<box>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="0c7d263b-94ad-461f-b2dd-ce9daaae86f4" x="370" y="0" width="80" height="20" fontName="Arial" fontSize="8.0" linkType="None" linkTarget="Self" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA["CREDIT"]]></expression>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<box>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="d9518d32-d72d-4d35-9e9c-c6268a8a7c4d" x="450" y="0" width="102" height="20" fontName="Arial" fontSize="8.0" linkType="None" linkTarget="Self" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA["BALANCE"]]></expression>
+			<box>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<property name="com.jaspersoft.studio.unit.height" value="px"/>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<element kind="textField" uuid="af9fe62d-63a8-4210-b82a-6b8a467917cf" x="60" y="0" width="170" height="18" fontName="Arial" fontSize="8.0" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$F{particulars} == null ? "" : $F{particulars}]]></expression>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="c49672a5-d056-43d6-8afe-aea36f1fbbee" x="230" y="0" width="60" height="18" fontName="Arial" fontSize="8.0" blankWhenNull="true" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{instrumentNo} == null ? "" : $F{instrumentNo}]]></expression>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="592733ea-5590-478b-bc35-c89ab1246c7d" x="290" y="0" width="80" height="18" fontName="Arial" fontSize="8.0" pattern="#,##0.###;#,##0.###-" hTextAlign="Right" vTextAlign="Middle">
+				<expression><![CDATA[$F{debit} == null ? "" : $F{debit}]]></expression>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="de56e938-db13-412f-adac-77afaf3be469" x="370" y="0" width="80" height="18" fontName="Arial" fontSize="8.0" pattern="#,##0.###;#,##0.###-" hTextAlign="Right" vTextAlign="Middle">
+				<expression><![CDATA[$F{credit}== null ? "" : $F{credit}]]></expression>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="b9efbac4-fe3b-4585-82cb-51e1e56d91c3" x="450" y="0" width="102" height="18" fontName="Arial" fontSize="8.0" pattern="#,##0.###;#,##0.###-" hTextAlign="Right" vTextAlign="Middle">
+				<expression><![CDATA[$F{balance} == null ? "" : $F{balance}]]></expression>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="6e1e9dea-06b3-4e3f-ac27-b576bbe9b49a" x="0" y="0" width="60" height="18" fontName="Arial" fontSize="8.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{date} == null ? "" : $F{date}]]></expression>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch">
+		<property name="com.jaspersoft.studio.unit.height" value="px"/>
+	</columnFooter>
+	<pageFooter height="32" splitType="Stretch">
+		<element kind="textField" uuid="d2c73975-5fed-4b3b-90a1-472415635410" stretchType="ElementGroupHeight" x="0" y="0" width="552" height="30" fontName="Arial" fontSize="8.0" textAdjust="StretchHeight" printWhenDetailOverflows="true" hTextAlign="Left" vTextAlign="Middle">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+			<expression><![CDATA["For Digital Banking and E-Statement Service, please call NBP Call Center (111-627-627 or Toll Free No. 0800-11627) or submit to your Branch the duly filled-in and signed subscription form (also available on NBP website www.nbp.com.pk)"]]></expression>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<box>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="line" uuid="9ae6a93d-927e-46bf-8973-88f74e89b6ca" x="0" y="0" width="552" height="1">
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<property name="com.jaspersoft.studio.unit.height" value="px"/>
+	</pageFooter>
+	<summary height="41" splitType="Immediate">
+		<element kind="textField" uuid="dfb83edc-043e-4b4a-90da-957cb77b9dc9" x="240" y="20" width="292" height="20" fontName="Arial" fontSize="11.0" linkType="None" linkTarget="Self" bold="true" hTextAlign="Right" vTextAlign="Middle">
+			<expression><![CDATA[$P{TotalDebitTrxAmountFormatted}]]></expression>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="5e634081-58c8-4d56-8308-45d34008a0fe" x="240" y="0" width="292" height="20" fontName="Arial" fontSize="11.0" linkType="None" linkTarget="Self" bold="true" hTextAlign="Right" vTextAlign="Middle">
+			<expression><![CDATA[$P{TotalCreditTrxAmountFormatted}]]></expression>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="line" uuid="0ade0277-13a0-4d22-8a2e-e66b976d9d61" x="0" y="0" width="552" height="1">
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<property name="com.jaspersoft.studio.unit.height" value="px"/>
+	</summary>
+</jasperReport>
