@@ -12,6 +12,14 @@ public class SOARequest {
     private BigDecimal barCodeLength;
     private String category;
     private String statusDesc;
+    
+    private BigDecimal numberOfRowsPerPage;
+    private BigDecimal adjustmentRowsPerPage;
+    
+    private String printSOAFor;
+    
+    private boolean convertIntoPS; 
+    
     public SOARequest() {}
 
 	/**
@@ -118,6 +126,62 @@ public class SOARequest {
 
 	public void setBarCodeLength(BigDecimal barCodeLength) {
 		this.barCodeLength = barCodeLength;
+	}
+
+	/**
+	 * @return the numberOfRowsPerPage
+	 */
+	public BigDecimal getNumberOfRowsPerPage() {
+		return numberOfRowsPerPage;
+	}
+
+	/**
+	 * @param numberOfRowsPerPage the numberOfRowsPerPage to set
+	 */
+	public void setNumberOfRowsPerPage(BigDecimal numberOfRowsPerPage) {
+		this.numberOfRowsPerPage = numberOfRowsPerPage;
+	}
+
+	/**
+	 * @return the adjustmentRowsPerPage
+	 */
+	public BigDecimal getAdjustmentRowsPerPage() {
+		return adjustmentRowsPerPage;
+	}
+
+	/**
+	 * @param adjustmentRowsPerPage the adjustmentRowsPerPage to set
+	 */
+	public void setAdjustmentRowsPerPage(BigDecimal adjustmentRowsPerPage) {
+		this.adjustmentRowsPerPage = adjustmentRowsPerPage;
+	}
+
+	/**
+	 * @return the printSOAFor
+	 */
+	public String getPrintSOAFor() {
+		return printSOAFor;
+	}
+
+	/**
+	 * @param printSOAFor the printSOAFor to set
+	 */
+	public void setPrintSOAFor(String printSOAFor) {
+		this.printSOAFor = printSOAFor;
+	}
+
+	/**
+	 * @return the convertIntoPS
+	 */
+	public boolean isConvertIntoPS() {
+		return convertIntoPS;
+	}
+
+	/**
+	 * @param convertIntoPS the convertIntoPS to set
+	 */
+	public void setConvertIntoPS(boolean convertIntoPS) {
+		this.convertIntoPS = convertIntoPS;
 	}
 	
     
